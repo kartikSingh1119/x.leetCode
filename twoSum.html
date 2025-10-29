@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>x.TwoSumProblem</title>
+
+<!-- CodeMirror CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/theme/dracula.min.css">
+
+<!-- CodeMirror JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/mode/xml/xml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/mode/javascript/javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/mode/css/css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/mode/htmlmixed/htmlmixed.min.js"></script>
+
+<style>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+    margin: 0;
+    padding: 30px;
+    line-height: 1.6;
+}
+
+.main {
+    max-width: auto;
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0px 3px 12px rgba(0,0,0,0.1);
+     word-wrap: break-word;
+}
+
+.main h2 {
+    text-align: center;
+    color: #1abc9c;
+    font-size: 36px;
+    letter-spacing: 1px;
+}
+
+hr {
+    border: 0;
+    border-top: 2px solid #e0e0e0;
+    margin: 20px 0;
+}
+
+strong { color: #16a085; }
+ul { margin-left: 20px; padding-left: 10px; }
+code {
+    background-color: #f3f3f3;
+    padding: 3px 8px;
+    border-radius: 4px;
+    color: #c0392b;
+    font-weight: 600;
+}
+p { font-size: 17px; margin-top: 10px; }
+
+.note1 {
+    max-width: auto;
+    border: 2px solid #f39c12;
+    border-left: 8px solid #f39c12;
+    margin-top: 25px;
+    background-color: #fff8dc;
+    text-align: center;
+    word-wrap: break-word;
+    padding: 15px 10px;
+    border-radius: 8px;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.1);
+}
+
+.note1 strong { color: #e74c3c; }
+.note1 p { font-size: 18px; color: #333; }
+
+.highlight {
+    background: #e8f8f5;
+    padding: 35px;
+    border-radius: 8px;
+    border-left: 6px solid #1abc9c;
+}
+
+.liveExample {
+    gap: 20px;
+    margin-top: 30px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 3px 12px rgba(0,0,0,0.1);
+}
+
+#editor {
+    width:100%;
+    height: 500px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    overflow: hidden;
+}
+
+.CodeMirror {
+    height: 500px !important;
+    font-size: 14px;
+    border-radius: 8px;
+}
+
+#ifrm1 {
+    width:100%;
+    height: 500px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background: white;
+}
+
+.infoAboutExample {
+    max-width: auto;
+    border: 2px solid #f39c12;
+    border-left: 8px solid #f39c12;
+    margin-top: 25px;
+    background-color: #fff8dc;
+    text-align: center;
+    word-wrap: break-word;
+    padding: 15px 10px;
+    border-radius: 8px;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.1);
+}
+
+.moreExample{
+    background: #e8f8f5;
+    padding: 20px 25px;
+    border-radius: 8px;
+    border-left: 6px solid #1abc9c;
+    word-wrap: break-word;
+    margin-top: 20px;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.08);
+}
+
+.moreExample strong {
+    color: #16a085;
+    font-size: 20px;
+}
+
+.moreExample p, .moreExample li {
+    font-size: 16px;
+    margin-top: 8px;
+    line-height: 1.5;
+}
+
+.moreExample ul {
+    margin-left: 15px;
+    padding-left: 15px;
+    list-style-type: disc;
+}
+
+.moreExample li {
+    background: #f3f3f3;
+    padding: 8px 10px;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+</style>
+</head>
+<body>
+
+<div class="main">
+    <h2>x.TwoSumProblem....</h2>
+    <hr>
+    In the <strong>Two Sum problem</strong>, we have an <strong>array</strong> that contains lots of numbers. These numbers can represent anything such as:
+    <ul>
+        <li>Prices of items</li>
+        <li>Prices of equipment in games</li>
+        <li>Transactions of a user</li>
+        <li>Prices of gifts</li>
+        <li>Weights of products in a transport line</li>
+    </ul>
+    Now, the main challenge in front of us is finding two numbers from this array whose sum is equal to our <strong>target value</strong>.  
+    Here, the target value can represent anything:
+    <ul>
+        <li>It can be our shopping budget</li>
+        <li>It can be the transaction limit of our bank account</li>
+        <li>It can be the weight limit of products in a transport line</li>
+        <li>It can be the price limit of equipment in games</li>
+    </ul>
+    <hr>
+    <strong>Real World Scenario:</strong><br>
+    <p>Suppose we are in a shop with ₹500 in our pocket, and we have to buy two items whose prices together are equal to our budget — ₹500.</p>
+</div>
+
+<br>
+
+<div class="highlight">
+    Now, in this case, we use the <strong>Two Sum problem</strong> to find those two items whose total price equals our budget. 
+    <br><br>
+    <strong>Using the <code>Two Sum problem</code> for this scenario:</strong><br><br>
+
+    <strong>Step 1:</strong><br>
+    <p>Here we create an array named <code>itemPrice</code> which stores the prices of the items available in the shop:</p>
+    <p><code>itemPrice = [100, 80, 230, 210, 120, 400]</code></p>
+
+    <strong>Step 2:</strong><br>
+    <p>We know our budget is ₹500, which will act as our <strong>target value</strong>.</p>
+    <p><code>targetValue = 500</code></p>
+
+    <strong>Step 3:</strong><br>
+    <p>Now we apply the <strong>Two Sum problem</strong> to solve this and find the two item prices that add up to our target value.</p>
+
+    <strong>Solution:</strong><br>
+    <p><code>100 + 400 = 500 = target value</code></p>
+</div>
+
+<div class="note1">
+    <p><strong style="font-size:40px;">Note</strong><br>
+    Here we have a very small list, so we can easily find our target value. But <strong>think</strong> — when we have thousands or lakhs of items, what do we do then?<br>
+    That’s where we use the <strong>Two Sum problem....</strong></p>
+</div>
+<br>
+<div class="liveExample">
+    <strong style="font-size:25px;">LiveExample:</strong><br>
+
+    <br>
+    <iframe id="ifrm1"></iframe>
+    
+    <div id="editor"></div>
+    <br>
+    
+    <button id="editTheCode"style="background-color:#1abc9c;width:100%;height:50px;border-radius:15px;box-shadow:0px 0px 10px black;">Edit the Code....</button>
+    <br>
+    <br>
+    <button id="copyCode"style="background-color:#1abc9c;width:100%;height:50px;border-radius:15px;box-shadow:0px 0px 10px black;">Copy Code</button>
+    
+    
+</div>
+<div class="infoAboutExample">
+  <p>
+    <strong>About the Live Example:</strong><br>
+    In this live example, we have a list of items represented by emojis along with their prices.  
+    The goal is to find and display pairs of items whose prices add up to a target value of ₹1000 using the <strong>Two Sum</strong> approach.  
+    This demonstrates how the Two Sum algorithm can be applied in a practical scenario, such as shopping within a budget.
+  </p>
+</div>
+
+<br>
+<strong>Examples for understand....</strong>
+
+<!-- Styled Examples -->
+<div class="moreExample">
+    <strong>Example 1: Gaming / In-Game Purchases</strong>
+    <ul>
+        <li><strong>Scenario:</strong> A mobile game wants to suggest bundles of items that total exactly a player’s in-game currency to maximize engagement.</li>
+        <li><strong>Example:</strong> Player has 1,000 coins. Available items: [300, 400, 600, 700]. Suggested pair: 300 + 700 = 1,000 ✅</li>
+        <li><strong>Benefit:</strong> Increases player satisfaction by using all currency. Encourages buying multiple items → higher revenue for the game.</li>
+    </ul>
+</div>
+
+<div class="moreExample">
+    <strong>Example 2: E-commerce / Discounts</strong>
+    <ul>
+        <li><strong>Scenario:</strong> A shopping app wants to suggest pairs of products that a customer can buy together to reach a discount threshold.</li>
+        <li><strong>Example:</strong> If the discount applies for ₹1,000 purchases, and the cart has items ₹400, ₹600, ₹300, ₹700, the app can suggest buying ₹400 + ₹600 = ₹1,000 to get the discount.</li>
+        <li><strong>Benefit:</strong> Improves upselling and customer experience.</li>
+    </ul>
+</div>
+
+<div class="moreExample">
+    <strong>Example 3: Inventory Management</strong>
+    <ul>
+        <li><strong>Scenario:</strong> A warehouse wants to bundle products into boxes without exceeding weight limits.</li>
+        <li><strong>Example:</strong> If the box limit is 50kg, and products weigh 20kg, 30kg, 25kg, 15kg, the system can find combinations like 20kg + 30kg = 50kg.</li>
+        <li><strong>Benefit:</strong> Optimizes packing and shipping.</li>
+    </ul>
+</div>
+
+<div class="moreExample">
+    <strong>Example 4: Event Planning / Budgeting</strong>
+    <ul>
+        <li><strong>Scenario:</strong> Organizers have a fixed budget for gifts or resources and want to pair items without exceeding the budget.</li>
+        <li><strong>Example:</strong> If the budget is ₹1,200, and items cost ₹700, ₹500, ₹300, ₹900, the system can suggest ₹700 + ₹500 = ₹1,200.</li>
+        <li><strong>Benefit:</strong> Ensures budget efficiency and planning.</li>
+    </ul>
+</div>
+
+<script>
+const editor = CodeMirror(document.getElementById('editor'), {
+    mode: 'htmlmixed',
+    lineNumbers: true,
+    theme: 'dracula',
+    tabSize: 2,
+    value: ''
+});
+let edit=document.getElementById("editor");
+
+const iframe = document.getElementById('ifrm1');
+
+// Function to load gamingExample.html automatically
+async function loadCode() {
+    try {
+        const resp = await fetch("exampleTwoSum.html");
+        const data = await resp.text();
+        editor.setValue(data);
+        iframe.srcdoc = data;
+        edit.style.display="none";
+
+    } catch (e) {
+        editor.setValue("<!-- exampleTwoSum.html not found -->");
+    }
+}
+
+// Update preview live while typing
+editor.on('change', () => {
+    iframe.srcdoc = editor.getValue();
+});
+
+loadCode();
+let displayValue=true;
+editTheCode.onclick=()=>{
+    if(displayValue){
+        edit.style.display="";
+        ifrm1.style.display="none";
+        displayValue=false;
+        editTheCode.innerHTML="Run the code....";
+    }else{
+        edit.style.display="none";
+        ifrm1.style.display="";
+        displayValue=true;
+        editTheCode.innerHTML="Edit the Code....";
+    }
+}
+
+const copyBtn = document.getElementById('copyCode');
+copyBtn.addEventListener('click', () => {
+    const code = editor.getValue();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code)
+        .then(() => {
+            copyBtn.innerText = "Copied!";
+            setTimeout(() => { copyBtn.innerText = "Copy Code"; }, 1500);
+        })
+        .catch(() => { fallbackCopy(code); });
+    } else { fallbackCopy(code); }
+});
+
+function fallbackCopy(text) {
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    textarea.setSelectionRange(0, 99999);
+    try {
+        document.execCommand('copy');
+        copyBtn.innerText = "Copied!";
+        setTimeout(() => { copyBtn.innerText = "Copy Code"; }, 1500);
+    } catch (err) {
+        alert("Failed to copy code");
+    }
+    document.body.removeChild(textarea);
+}
+</script>
+
+</body>
+</html>
