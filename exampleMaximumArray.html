@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>x.Maximum Subarray (Kadane's Algorithm)</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #121212;
+      color: #f0f0f0;
+      margin: 0;
+      padding-bottom: 50px;
+    }
+    h1 { color: #00ffff; margin-top: 25px; font-size: 28px; }
+    h2 { color: #00ccff; margin-top: 15px; }
+    p {
+      color: #bbb;
+      max-width: 800px;
+      margin: 10px auto 30px;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .box {
+      width: 95%;
+      max-width: 1000px;
+      min-height: 300px;
+      margin: 20px auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 15px;
+      box-sizing: border-box;
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      overflow-y: auto;
+    }
+    .day {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      padding: 15px;
+      border-radius: 12px;
+      width: 90px;
+      background: linear-gradient(145deg, #333, #555);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+      transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    }
+    .day:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      background: linear-gradient(145deg, #555, #777);
+    }
+    .day strong { color: #fff; font-size: 14px; }
+    .day span { font-size: 28px; margin: 5px 0; }
+    .day small { color: #ccc; font-size: 14px; }
+    .highlight {
+      background: linear-gradient(135deg, #00ffff, #00ccff);
+      color: #000;
+      transform: scale(1.1);
+      box-shadow: 0 0 25px #00ffff;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px 25px;
+      font-size: 18px;
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #00ffff, #0077ff);
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.7);
+    }
+    #message {
+      display: none;
+      background-color: #1b1c22;
+      color: #00ffcc;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-top: 25px;
+      padding: 15px 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,255,255,0.2);
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>💡 x.Maximum Subarray Problem — Kadane’s Algorithm</h1>
+  <h2>Detect the Customer’s Maximum Continuous Spending Streak 💰</h2>
+
+  <p>
+    This project demonstrates the <b>Maximum Subarray Problem</b> using <b>Kadane’s Algorithm</b>, 
+    a famous LeetCode problem (<b>#53</b>).  
+    <br><br>
+    🧠 <b>Concept:</b> It finds the <b>maximum sum of any continuous subarray</b> — 
+    meaning the highest possible total of purchases made over consecutive days.  
+    <br><br>
+    💼 <b>Real-world Intention:</b>  
+    E-commerce companies like <b>Amazon</b> or <b>Flipkart</b> could use this to detect 
+    when a customer is in their <b>strongest buying streak</b> to send <b>special coupons</b> 
+    or <b>bonus offers</b> 🛒.  
+    <br><br>
+    🎯 <b>Goal:</b> Find the customer’s <b>maximum continuous spending streak</b> — 
+    the time when they were most active buyers.
+  </p>
+
+  <div class="box" id="grid"></div>
+  <button onclick="detectMaxSpending()">💰 Find Max Spending Streak</button>
+  <div id="message"></div>
+
+  <script>
+    // ===============================
+    // 🧩 STEP 1: Data Setup
+    // ===============================
+    const days = Array.from({ length: 30 }, (_, i) => `Day ${i + 1}`);
+    const items = [
+      "📱", null, "👟", "💻", "🎧", null, "🎒", "⌚", "📷", "🍔", null,
+      "👗", "💄", "🏀", null, "🎮", "💻", "📚", null, "👞", "📱",
+      null, "🎧", "👗", "🍕", null, "👜", "👓", "🎒", null
+    ];
+    const prices = [
+      1500, 0, 800, 2200, 1200, 0, 0, 2500, 1000, 200, 0,
+      1800, 700, 0, 0, 2200, 2700, 800, 0, 1500, 2500,
+      0, 1200, 800, 500, 0, 3000, 2000, 700, 0
+    ];
+    const purchases = days.map((_, i) => [items[i], prices[i]]);
+
+    // ===============================
+    // 🧱 STEP 2: Create Grid Boxes
+    // ===============================
+    const grid = document.getElementById("grid");
+    purchases.forEach((item, i) => {
+      const div = document.createElement("div");
+      div.classList.add("day");
+      div.innerHTML = `
+        <strong>${days[i]}</strong>
+        <span>${item[0] ? item[0] : "—"}</span>
+        <small>₹${item[1]}</small>
+      `;
+      grid.appendChild(div);
+    });
+
+    // ===============================
+    // ⚙️ STEP 3: Kadane’s Algorithm (Maximum Subarray)
+    // ===============================
+    function findMaxSubarray(prices) {
+      let maxSum = -Infinity;
+      let currentSum = 0;
+      let start = 0, tempStart = 0, end = 0;
+
+      for (let i = 0; i < prices.length; i++) {
+        // 0 spending means break the streak
+        if (prices[i] === 0) {
+          currentSum = 0;
+          tempStart = i + 1;
+          continue;
+        }
+
+        currentSum += prices[i];
+
+        if (currentSum > maxSum) {
+          maxSum = currentSum;
+          start = tempStart;
+          end = i;
+        }
+
+        if (currentSum < 0) {
+          currentSum = 0;
+          tempStart = i + 1;
+        }
+      }
+      return { start, end, maxSum };
+    }
+
+    // ===============================
+    // 🎯 STEP 4: Detect & Highlight
+    // ===============================
+    function detectMaxSpending() {
+      const boxes = document.querySelectorAll(".day");
+      boxes.forEach(b => b.classList.remove("highlight"));
+      const msg = document.getElementById("message");
+      msg.style.display = "none";
+
+      const { start, end, maxSum } = findMaxSubarray(prices);
+
+      if (maxSum > 0) {
+        const streakElements = [];
+        for (let i = start; i <= end; i++) {
+          boxes[i].classList.add("highlight");
+          streakElements.push(boxes[i]);
+        }
+
+        grid.innerHTML = "";
+        streakElements.forEach(el => grid.appendChild(el));
+
+        msg.innerHTML = `
+          💥 Your highest continuous shopping streak totals <b>₹${maxSum}</b>!<br><br>
+          🛍️ Congratulations — you’ve earned a <b>premium shopping coupon</b> 
+          for your strongest spending session! 💳✨
+        `;
+        msg.style.display = "block";
+      } else {
+        alert("No valid spending streak found 😢");
+      }
+    }
+  </script>
+
+</body>
+</html>
