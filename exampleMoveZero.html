@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎮 Player Online Status — Toggle Arrange</title>
+  <style>
+    /* ====== BODY STYLE ====== */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #000; /* Black background */
+      color: #f0f0f0;
+      margin: 0;
+      padding: 20px 10px;
+    }
+
+    /* ====== HEADINGS ====== */
+    h1 { 
+      color: #00ffff; /* Cyan color */
+      margin-bottom: 10px; 
+      text-align: center; 
+      font-size: 1.8rem; 
+    }
+    h2 { 
+      color: #00ccff; /* Slightly lighter blue */
+      font-size: 1.3rem; 
+      margin-bottom: 10px; 
+      text-align: center; 
+    }
+    p { 
+      color: #bbb; 
+      max-width: 700px; 
+      text-align: center; 
+      font-size: 16px; 
+      line-height: 1.5; 
+      margin-bottom: 25px; 
+    }
+
+    /* ====== BOX THAT CONTAINS PLAYERS ====== */
+    .box {
+      width: 95%; 
+      max-width: 500px; 
+      max-height: 500px;
+      background-color: #111; /* Dark gray box */
+      border-radius: 15px; 
+      padding: 10px;
+      overflow-y: auto; /* Scroll if overflow */
+      box-shadow: 0 6px 20px rgba(0,0,0,0.7);
+      margin-bottom: 20px;
+    }
+    .box::-webkit-scrollbar { display: none; } /* Hide scrollbar */
+
+    /* ====== EACH PLAYER ROW ====== */
+    .longBox {
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between;
+      width: 94%; 
+      height: 70px; 
+      border-radius: 15px; 
+      padding: 0 15px;
+      margin: 8px 0; 
+      font-weight: bold; 
+      font-size: 16px;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+      background: linear-gradient(145deg, #222, #444); /* Dark gradient */
+      flex-wrap: wrap; /* For responsiveness */
+    }
+
+    .longBox:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+      background: linear-gradient(145deg, #333, #555); /* Slightly lighter on hover */
+    }
+
+    /* ====== PLAYER PROFILE ICON ====== */
+    .userProf {
+      width: 50px; 
+      height: 50px; 
+      border-radius: 50%;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      font-size: 26px; 
+      margin-right: 15px;
+      border: 2px solid #00ffff; 
+      background: linear-gradient(145deg, #555, #777); 
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5); 
+      flex-shrink: 0;
+    }
+
+    /* ====== ONLINE/OFFLINE STYLING ====== */
+    .online { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+    .offline { background: linear-gradient(135deg, #ff5858, #f09819); }
+
+    /* ====== BUTTON STYLE ====== */
+    button {
+      width: 95%; max-width: 500px; 
+      padding: 14px 25px; 
+      font-size: 18px;
+      cursor: pointer; 
+      border: none; 
+      border-radius: 12px; 
+      font-weight: bold;
+      background: linear-gradient(135deg, #00ffff, #0077ff); 
+      color: #000;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+      transition: transform 0.2s, box-shadow 0.2s; 
+      margin-bottom: 30px;
+    }
+
+    button:hover { 
+      transform: scale(1.05); 
+      box-shadow: 0 8px 25px rgba(0,0,0,0.8); 
+    }
+
+    /* ====== PLAYER STATUS TEXT ====== */
+    .statusValue { font-size: 14px; font-weight: normal; color: #eee; }
+    .playerInfo { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+    /* ====== RESPONSIVE ====== */
+    @media (max-width: 480px) {
+      .longBox { height: auto; flex-direction: column; align-items: flex-start; padding: 10px; }
+      .userProf { margin-bottom: 5px; }
+      .playerInfo { flex-direction: column; align-items: flex-start; }
+      button { font-size: 16px; padding: 12px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ====== THEORETICAL SECTION ====== -->
+<h1>🎮 Player Online Status — Move Zeroes Example</h1>
+<h2>Organize Players Based on Online/Offline Status</h2>
+<p>
+  This project demonstrates a simple **Move Zeroes problem** in real life:
+  <br><br>
+  🧠 <b>Concept:</b> We have a list of players with status 1 (online) or 0 (offline).  
+  The goal is to move all **offline players (0)** to the end of the list, keeping the order of **online players (1)** intact.  
+  <br><br>
+  🎮 <b>Use in Gaming:</b> In multiplayer games or apps, it’s often helpful to show **online players first** in the lobby for better interaction.  
+  <br><br>
+  💡 <b>Goal:</b> When you click the button, the system **rearranges players** so that online players appear at the top and offline players at the bottom.
+</p>
+
+<!-- ====== PLAYERS CONTAINER ====== -->
+<div class="box"></div>
+
+<!-- ====== TOGGLE BUTTON ====== -->
+<button>Click on me to arrange</button>
+
+<script>
+  const box = document.querySelector(".box");
+  const btn = document.querySelector("button");
+
+  // ====== PLAYER NAMES AND STATUS ======
+  let playerName = ["player1","player2","player3","player4","player5","player6","player7","player8","player9","player10"];
+  let status = [1,0,0,1,1,0,0,1,0,1]; // 1 = online, 0 = offline
+
+  // ====== STORE ORIGINAL DATA ======
+  const originalData = playerName.map((name,i)=>({name,status:status[i]}));
+  let arranged = false; // Toggle flag
+
+  // ====== FUNCTION TO SHOW PLAYERS ======
+  function showPlayers(data) {
+    box.innerHTML = ""; // Clear the box before rendering
+    data.forEach(p => {
+      let div = document.createElement("div");
+      div.classList.add("longBox");
+      div.classList.add(p.status === 1 ? "online" : "offline"); // Set color
+
+      let profile = document.createElement("div");
+      profile.classList.add("userProf");
+      profile.textContent = p.status === 1 ? "😎" : "😴"; // Emoji for online/offline
+
+      let info = document.createElement("div");
+      info.classList.add("playerInfo");
+      info.innerHTML = `${p.name} (${p.status===1?"Online":"Offline"}) <span class="statusValue">Value: ${p.status}</span>`;
+
+      div.appendChild(profile);
+      div.appendChild(info);
+      box.appendChild(div);
+    });
+  }
+
+  // ====== INITIAL DISPLAY ======
+  showPlayers(originalData);
+
+  // ====== TOGGLE ARRANGE BUTTON ======
+  btn.addEventListener("click", ()=>{
+    if(!arranged){
+      // Arrange: online players first
+      const arrangedData = [...originalData].sort((a,b)=>b.status - a.status);
+      showPlayers(arrangedData);
+      arranged = true;
+    } else {
+      // Restore original order
+      showPlayers(originalData);
+      arranged = false;
+    }
+  });
+</script>
+</body>
+</html>

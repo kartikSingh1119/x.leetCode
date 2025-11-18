@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>x.TwoSumProblem</title>
+
+<!-- CodeMirror CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/theme/dracula.min.css">
+
+<!-- CodeMirror JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/mode/xml/xml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/mode/javascript/javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/mode/css/css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/mode/htmlmixed/htmlmixed.min.js"></script>
+
+<style>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+    margin: 0;
+    padding: 30px;
+    line-height: 1.6;
+}
+
+.main {
+    max-width: auto;
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0px 3px 12px rgba(0,0,0,0.1);
+     word-wrap: break-word;
+}
+
+.main h2 {
+    text-align: center;
+    color: #1abc9c;
+    font-size: 36px;
+    letter-spacing: 1px;
+}
+
+hr {
+    border: 0;
+    border-top: 2px solid #e0e0e0;
+    margin: 20px 0;
+}
+
+strong { color: #16a085; }
+ul { margin-left: 20px; padding-left: 10px; }
+code {
+    background-color: #f3f3f3;
+    padding: 3px 8px;
+    border-radius: 4px;
+    color: #c0392b;
+    font-weight: 600;
+}
+p { font-size: 17px; margin-top: 10px; }
+
+.note1 {
+    max-width: auto;
+    border: 2px solid #f39c12;
+    border-left: 8px solid #f39c12;
+    margin-top: 25px;
+    background-color: #fff8dc;
+    text-align: center;
+    word-wrap: break-word;
+    padding: 15px 10px;
+    border-radius: 8px;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.1);
+}
+
+.note1 strong { color: #e74c3c; }
+.note1 p { font-size: 18px; color: #333; }
+
+.highlight {
+    background: #e8f8f5;
+    padding: 35px;
+    border-radius: 8px;
+    border-left: 6px solid #1abc9c;
+}
+
+.liveExample {
+    gap: 20px;
+    margin-top: 30px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 3px 12px rgba(0,0,0,0.1);
+}
+
+#editor {
+    width:100%;
+    height: 500px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    overflow: hidden;
+}
+
+.CodeMirror {
+    height: 500px !important;
+    font-size: 14px;
+    border-radius: 8px;
+}
+
+#ifrm1 {
+    width:100%;
+    height: 500px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background: white;
+}
+
+.infoAboutExample {
+    max-width: auto;
+    border: 2px solid #f39c12;
+    border-left: 8px solid #f39c12;
+    margin-top: 25px;
+    background-color: #fff8dc;
+    text-align: center;
+    word-wrap: break-word;
+    padding: 15px 10px;
+    border-radius: 8px;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.1);
+}
+
+.moreExample{
+    background: #e8f8f5;
+    padding: 20px 25px;
+    border-radius: 8px;
+    border-left: 6px solid #1abc9c;
+    word-wrap: break-word;
+    margin-top: 20px;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.08);
+}
+
+.moreExample strong {
+    color: #16a085;
+    font-size: 20px;
+}
+
+.moreExample p, .moreExample li {
+    font-size: 16px;
+    margin-top: 8px;
+    line-height: 1.5;
+}
+
+.moreExample ul {
+    margin-left: 15px;
+    padding-left: 15px;
+    list-style-type: disc;
+}
+
+.moreExample li {
+    background: #f3f3f3;
+    padding: 8px 10px;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+</style>
+</head>
+<body>
+
+<div class="main">
+    <h2>x.MoveZeroesProblem....</h2>
+    <hr>
+    In the <strong>Move Zeroes problem</strong>, we have an <strong>array</strong> that contains different types of elements. 
+    These elements can represent many things in the real world, such as:
+    <ul>
+        <li>Online players in a game</li>
+        <li>Active users in an app</li>
+        <li>Active tasks in a to-do list</li>
+        <li>Active enemies in a game level</li>
+        <li>Valid transactions in a finance app</li>
+    </ul>
+
+    Here, the number <strong>0</strong> represents something that is <strong>inactive or empty</strong>.  
+    For example:
+    <ul>
+        <li>0 = Offline player</li>
+        <li>0 = Inactive user</li>
+        <li>0 = Empty task slot</li>
+        <li>0 = Destroyed enemy</li>
+        <li>0 = No transaction</li>
+    </ul>
+
+    Now, the main challenge in front of us is to <strong>move all zeros to the end</strong> of the array  
+    while keeping all active elements in their correct order.
+
+    <hr>
+    <strong>Real World Scenario (Gaming Example):</strong><br>
+    <p>
+        Suppose we are in a multiplayer game lobby. Some players are online, and some are offline.  
+        The game wants to show all <strong>online players first</strong> because they are ready for the match,  
+        and offline players (0) should be moved to the bottom.
+    </p>
+
+    <p>
+        Example list:<br>
+        <strong>[player1, 0, player2, player3, 0, player4]</strong><br><br>
+        After arranging:<br>
+        <strong>[player1, player2, player3, player4, 0, 0]</strong>
+    </p>
+
+    <p>
+        This makes the lobby clean, fast, and easy for matchmaking.
+    </p>
+</div>
+
+
+<br>
+<div class="highlight">
+    In this case, we use the <strong>Move Zeroes problem</strong> to arrange the list of players in a game,
+    so that all <strong>online players come first</strong> and all <strong>offline players (0)</strong> automatically move to the end.
+    <br><br>
+
+    <strong>Using the <code>Move Zeroes problem</code> for this scenario:</strong><br><br>
+
+    <strong>Step 1:</strong><br>
+    <p>We create an array named <code>playerStatus</code> to store the status of players in a game.</p>
+    <p>Here: <code>1 = Online Player</code> and <code>0 = Offline Player</code></p>
+    <p><code>playerStatus = [1, 0, 1, 0, 1, 1, 0]</code></p>
+
+    <strong>Step 2:</strong><br>
+    <p>Our goal is simple: <strong>move all offline players (0)</strong> to the end,
+       without changing the order of online players.</p>
+
+    <strong>Step 3:</strong><br>
+    <p>Now we apply the <strong>Move Zeroes problem</strong> to rearrange the players properly.</p>
+
+    <strong>Solution:</strong><br>
+    <p><code>[1, 1, 1, 1, 0, 0, 0]</code></p>
+    <p>This means all online players are shown first, and all offline players are moved to the end.</p>
+</div>
+
+<div class="note1">
+    <p><strong style="font-size:40px;">Note</strong><br>
+    In this example, our list is very small.  
+    So it is simple to find the answer.  
+    But imagine if the list had thousands of numbers — then it becomes difficult to find things quickly.<br><br>
+
+    There are many ways to solve big problems like this.  
+    But here we use the <strong>Move Zeroes to the End</strong> idea because it explains things in a very simple way.<br><br>
+
+    The main purpose of this topic is to show that:
+    <strong>we can take any number in an array and move it to the end.</strong><br><br>
+
+    In our example we moved <strong>0</strong>, but it could be <strong>any number</strong> — 1, 2, 3, 4… anything.<br><br>
+
+    This method teaches us how to easily rearrange items inside an array when we need clear and organised data.
+    </p>
+</div>
+
+
+<br>
+<div class="liveExample">
+    
+    <strong style="font-size:25px;">LiveExample:</strong><br>
+this is userinterfcae that you can create iy..........
+    <br>
+    <iframe id="ifrm1"></iframe>
+    
+    <div id="editor"></div>
+    <br>
+    
+    <button id="editTheCode"style="background-color:#1abc9c;width:100%;height:50px;border-radius:15px;box-shadow:0px 0px 10px black;">Edit the Code....</button>
+    <br>
+    <br>
+    <button id="copyCode"style="background-color:#1abc9c;width:100%;height:50px;border-radius:15px;box-shadow:0px 0px 10px black;">Copy Code</button>
+    
+    
+</div>
+
+<div class="infoAboutExample">
+  <p>
+    <strong>About the Live Example:</strong><br>
+    In this live example, we have a list of 10 players, each with a status of <strong>Online (1)</strong> or <strong>Offline (0)</strong>.  
+    The goal is to organize the players so that all online players appear at the top of the list while offline players move to the bottom.  
+    This demonstrates the <strong>Move Zeroes algorithm</strong>, which is used here to move all zeros (offline players) to the end without changing the order of the online players.
+    <br><br>
+    🧠 <strong>Algorithm Used:</strong> <em>Move Zeroes Algorithm</em> — it iterates through the array of statuses, collects all ones first, and then appends zeros at the end.  
+    <br><br>
+    💻 <strong>Where Algorithm is Applied:</strong> In the JavaScript part of the code, the function <code>moveZeroes()</code> takes the <code>status</code> array and rearranges it so that online players (1) come first. The button click toggles between arranged and original order.  
+    <br><br>
+    🎮 <strong>Real-world Use:</strong> In multiplayer games or apps, showing online players at the top improves user interaction and experience, similar to a game lobby.
+  </p>
+</div>
+
+<br>
+<strong>Examples for understand....</strong>
+
+<!-- Styled Examples -->
+<div class="moreExample">
+    <strong>Example 1: Social Apps / Active–Inactive Users</strong>
+    <ul>
+        <li><strong>0 Means:</strong> Inactive user</li>
+        <li><strong>Scenario:</strong> A social media app (Instagram/WhatsApp) wants to show active users first and move inactive users to the bottom.</li>
+        <li><strong>Example:</strong> [active, 0, active, active, 0] → [active, active, active, 0, 0]</li>
+        <li><strong>Benefit:</strong> Shows real active users at the top and improves user experience.</li>
+    </ul>
+</div>
+
+<div class="moreExample">
+    <strong>Example 2: To-Do Apps / Empty Slots</strong>
+    <ul>
+        <li><strong>0 Means:</strong> Empty task slot / No task</li>
+        <li><strong>Scenario:</strong> A task management app wants to show all real tasks together and push empty spaces (0) to the end.</li>
+        <li><strong>Example:</strong> [task1, 0, task2, 0, task3] → [task1, task2, task3, 0, 0]</li>
+        <li><strong>Benefit:</strong> Gives a clean view of tasks without gaps.</li>
+    </ul>
+</div>
+
+<div class="moreExample">
+    <strong>Example 3: Game Development / Active Objects</strong>
+    <ul>
+        <li><strong>0 Means:</strong> Destroyed or inactive game object (enemy dead)</li>
+        <li><strong>Scenario:</strong> A game engine wants to keep active enemies together and push destroyed/inactive ones (0) to the end.</li>
+        <li><strong>Example:</strong> [enemy1, 0, enemy2, 0, enemy3] → [enemy1, enemy2, enemy3, 0, 0]</li>
+        <li><strong>Benefit:</strong> Faster rendering and cleaner memory usage.</li>
+    </ul>
+</div>
+
+<div class="moreExample">
+    <strong>Example 4: Finance Apps / Zero Transactions</strong>
+    <ul>
+        <li><strong>0 Means:</strong> No transaction / Empty entry</li>
+        <li><strong>Scenario:</strong> A finance app wants to show all valid transactions first and move “no transaction” entries (0) to the end.</li>
+        <li><strong>Example:</strong> [0, 300, 0, 150, 80] → [300, 150, 80, 0, 0]</li>
+        <li><strong>Benefit:</strong> Easy data analysis and clean transaction history.</li>
+    </ul>
+</div>
+
+
+
+<script>
+const editor = CodeMirror(document.getElementById('editor'), {
+    mode: 'htmlmixed',
+    lineNumbers: true,
+    theme: 'dracula',
+    tabSize: 2,
+    value: ''
+});
+let edit=document.getElementById("editor");
+
+const iframe = document.getElementById('ifrm1');
+
+// Function to load gamingExample.html automatically
+async function loadCode() {
+    try {
+        const resp = await fetch("exampleMoveZero.html");
+        const data = await resp.text();
+        editor.setValue(data);
+        iframe.srcdoc = data;
+        edit.style.display="none";
+
+    } catch (e) {
+        editor.setValue("<!-- exampleTwoSum.html not found -->");
+    }
+}
+
+// Update preview live while typing
+editor.on('change', () => {
+    iframe.srcdoc = editor.getValue();
+});
+
+loadCode();
+let displayValue=true;
+editTheCode.onclick=()=>{
+    if(displayValue){
+        edit.style.display="";
+        ifrm1.style.display="none";
+        displayValue=false;
+        editTheCode.innerHTML="Run the code....";
+    }else{
+        edit.style.display="none";
+        ifrm1.style.display="";
+        displayValue=true;
+        editTheCode.innerHTML="Edit the Code....";
+    }
+}
+
+const copyBtn = document.getElementById('copyCode');
+copyBtn.addEventListener('click', () => {
+    const code = editor.getValue();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code)
+        .then(() => {
+            copyBtn.innerText = "Copied!";
+            setTimeout(() => { copyBtn.innerText = "Copy Code"; }, 1500);
+        })
+        .catch(() => { fallbackCopy(code); });
+    } else { fallbackCopy(code); }
+});
+
+function fallbackCopy(text) {
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    textarea.setSelectionRange(0, 99999);
+    try {
+        document.execCommand('copy');
+        copyBtn.innerText = "Copied!";
+        setTimeout(() => { copyBtn.innerText = "Copy Code"; }, 1500);
+    } catch (err) {
+        alert("Failed to copy code");
+    }
+    document.body.removeChild(textarea);
+}
+</script>
+
+</body>
+</html>
