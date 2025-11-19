@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>x.ThreeSumProblem</title>
+
+<!-- CodeMirror CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/theme/dracula.min.css">
+
+<!-- CodeMirror JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/mode/xml/xml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/mode/javascript/javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/mode/css/css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/mode/htmlmixed/htmlmixed.min.js"></script>
+
+<style>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+    margin: 0;
+    padding: 30px;
+    line-height: 1.6;
+}
+
+.main {
+    max-width: auto;
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0px 3px 12px rgba(0,0,0,0.1);
+     word-wrap: break-word;
+}
+
+.main h2 {
+    text-align: center;
+    color: #1abc9c;
+    font-size: 36px;
+    letter-spacing: 1px;
+}
+
+hr {
+    border: 0;
+    border-top: 2px solid #e0e0e0;
+    margin: 20px 0;
+}
+
+strong { color: #16a085; }
+ul { margin-left: 20px; padding-left: 10px; }
+code {
+    background-color: #f3f3f3;
+    padding: 3px 8px;
+    border-radius: 4px;
+    color: #c0392b;
+    font-weight: 600;
+}
+p { font-size: 17px; margin-top: 10px; }
+
+.note1 {
+    max-width: auto;
+    border: 2px solid #f39c12;
+    border-left: 8px solid #f39c12;
+    margin-top: 25px;
+    background-color: #fff8dc;
+    text-align: center;
+    word-wrap: break-word;
+    padding: 15px 10px;
+    border-radius: 8px;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.1);
+}
+
+.note1 strong { color: #e74c3c; }
+.note1 p { font-size: 18px; color: #333; }
+
+.highlight {
+    background: #e8f8f5;
+    padding: 35px;
+    border-radius: 8px;
+    border-left: 6px solid #1abc9c;
+}
+
+.liveExample {
+    gap: 20px;
+    margin-top: 30px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 3px 12px rgba(0,0,0,0.1);
+}
+
+#editor {
+    width:100%;
+    height: 500px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    overflow: hidden;
+}
+
+.CodeMirror {
+    height: 500px !important;
+    font-size: 14px;
+    border-radius: 8px;
+}
+
+#ifrm1 {
+    width:100%;
+    height: 500px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background: white;
+}
+
+.infoAboutExample {
+    max-width: auto;
+    border: 2px solid #f39c12;
+    border-left: 8px solid #f39c12;
+    margin-top: 25px;
+    background-color: #fff8dc;
+    text-align: center;
+    word-wrap: break-word;
+    padding: 15px 10px;
+    border-radius: 8px;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.1);
+}
+
+.moreExample{
+    background: #e8f8f5;
+    padding: 20px 25px;
+    border-radius: 8px;
+    border-left: 6px solid #1abc9c;
+    word-wrap: break-word;
+    margin-top: 20px;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.08);
+}
+
+.moreExample strong {
+    color: #16a085;
+    font-size: 20px;
+}
+
+.moreExample p, .moreExample li {
+    font-size: 16px;
+    margin-top: 8px;
+    line-height: 1.5;
+}
+
+.moreExample ul {
+    margin-left: 15px;
+    padding-left: 15px;
+    list-style-type: disc;
+}
+
+.moreExample li {
+    background: #f3f3f3;
+    padding: 8px 10px;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+</style>
+</head>
+<body>
+
+<div class="main">
+    <h2>x.ThreeSumProblem...</h2>
+    <hr>
+
+    In the <strong>Three Sum problem</strong>, we have an <strong>array</strong> that contains a collection of numbers. 
+    These numbers can represent many real-life values such as:
+    <ul>
+        <li>Daily pocket money (saved or spent)</li>
+        <li>Temperature readings</li>
+        <li>Profit/Loss values in business</li>
+        <li>Weight changes in a warehouse</li>
+        <li>Stock market ups and downs</li>
+    </ul>
+
+    The main goal of this problem is to find <strong>three numbers</strong> from the array whose 
+    total sum becomes <strong>zero</strong>.  
+
+    Here, zero represents a <strong>balanced state</strong>, meaning the effect of all three values gets cancelled out.
+    
+    <hr>
+    <strong>Real World Scenario:</strong><br>
+    <p>
+        Imagine a student who receives daily pocket money. Some days they <strong>save money (+)</strong>, 
+        and some days they <strong>spend money (−)</strong>.  
+        The student wants to check if there are <strong>any three days</strong> where the saved and spent
+        amounts together become perfectly balanced (sum = 0).
+        <br><br>
+        For example, if the amounts are: <strong>[+20, -5, -15, +10]</strong><br>
+        Then: <strong>20 + (-5) + (-15) = 0 ✔</strong><br>
+        This means:
+        <ul>
+            <li>Day 1 → Saved ₹20</li>
+            <li>Day 2 → Spent ₹5</li>
+            <li>Day 3 → Spent ₹15</li>
+        </ul>
+        All three actions cancel each other out, creating a perfect balance.
+    </p>
+</div>
+
+
+<br>
+
+<div class="highlight">
+    Now, in this case, we use the <strong>Three Sum problem</strong> to find those three days where 
+    the saved and spent pocket money balances out to zero.
+    <br><br>
+
+    <strong>Using the <code>Three Sum problem</code> for this scenario:</strong><br><br>
+
+    <strong>Step 1:</strong><br>
+    <p>We create an array named <code>pocketMoney</code> which stores how much money was saved (+) or spent (−) on different days:</p>
+    <p><code>pocketMoney = [20, -5, -15, 10]</code></p>
+
+    <strong>Step 2:</strong><br>
+    <p>Our target is to check whether any three values add up to <strong>zero</strong>, which represents a perfectly balanced amount.</p>
+    <p><code>targetValue = 0</code></p>
+
+    <strong>Step 3:</strong><br>
+    <p>Now we apply the <strong>Three Sum problem</strong> to find three numbers whose sum becomes zero.</p>
+
+    <strong>Solution:</strong><br>
+    <p><code>20 + (-5) + (-15) = 0 = target value ✔</code></p>
+</div>
+
+
+<div class="note1">
+    <p>
+        <strong style="font-size:40px;">Note</strong><br>
+        In this example, we used only a few days of pocket money, so it was very easy to find three values that balance to zero.  
+        <br><br>
+        But <strong>imagine</strong> if we had pocket-money records for 100 days… or 1,000 days… or even 10,000 days!  
+        <br>
+        Finding the correct three values manually would be almost <strong>impossible</strong>.  
+        <br><br>
+        That is where the <strong>Three Sum problem</strong> becomes extremely powerful.  
+        It helps computers quickly search through thousands of numbers and find the right combination that adds up to our target (in this case, <strong>zero</strong>).  
+        <br><br>
+        This idea is widely used in:<br>
+        • Finance (to check if three transactions cancel out)<br>
+        • Climate systems (three readings stabilizing temperature)<br>
+        • Stock market movement balancing<br>
+        • Logistics weight adjustments<br><br>
+        So even though our example is simple, the <strong>concept of Three Sum is used by companies at a massive scale</strong> to solve real-life problems.
+    </p>
+</div>
+
+<br>
+<div class="liveExample">
+    
+    <strong style="font-size:25px;">LiveExample:</strong><br>
+this is userinterfcae that you can create iy..........
+    <br>
+    <iframe id="ifrm1"></iframe>
+    
+    <div id="editor"></div>
+    <br>
+    
+    <button id="editTheCode"style="background-color:#1abc9c;width:100%;height:50px;border-radius:15px;box-shadow:0px 0px 10px black;">Edit the Code....</button>
+    <br>
+    <br>
+    <button id="copyCode"style="background-color:#1abc9c;width:100%;height:50px;border-radius:15px;box-shadow:0px 0px 10px black;">Copy Code</button>
+    
+    
+</div>
+<div class="infoAboutExample">
+  <p>
+    <strong>About the Live Example:</strong><br>
+    In this live example, we have a list of items represented by fun emojis along with their prices.  
+    Some items have positive prices, some negative (like discounts), and one item even costs ₹0.  
+    <br><br>
+
+    🎯 The goal is to find <strong>three items</strong> whose total combined price is exactly  
+    <strong>₹0</strong>.  
+    <br><br>
+
+    🧠 <strong>Algorithm Used:</strong> This demo uses the famous  
+    <strong>Three Sum algorithm</strong> — a classic problem from <b>LeetCode #15</b>.  
+    The algorithm checks every possible triplet of items and selects the ones where  
+    <strong>price1 + price2 + price3 = 0</strong>.  
+    <br><br>
+
+    💻 <strong>Where Algorithm is Applied:</strong>  
+    In the JavaScript part of the code, three nested <code>for</code> loops iterate over all possible item combinations.  
+    Whenever a valid triplet is found (sum = 0), it is added to the <code>foundTriplets</code> array and displayed visually in the box.  
+    <br><br>
+
+    💡 <strong>Real-world Use:</strong>  
+    Three Sum represents real-life scenarios like:  
+    • Finding 3 products whose discounts and prices balance out to zero.  
+    • Analyzing profit-loss and neutralizing costs in financial planning.  
+    • Matching 3 transactions that cancel each other out (accounting systems).  
+    <br><br>
+
+    This example shows how algorithms help in solving combination-based problems by checking multiple values together.
+  </p>
+</div>
+
+
+
+<br>
+<strong>Examples for understand....</strong>
+
+<!-- Styled Examples -->
+<div class="moreExample">
+    <strong>Example 1: Financial Adjustment System (Detailed Explanation)</strong>
+    <ul>
+        <li><strong>Scenario:</strong> In companies, money comes in (profit) and goes out (expenses). Sometimes the accounts team checks whether three different transactions together cancel out to zero. This helps them understand if money is missing or if records are incorrect.</li>
+        
+        <li><strong>Detailed Example:</strong> 
+            Transactions = [+500, -300, -200, +700].  
+            Here, 500 is profit, -300 and -200 are expenses.  
+            When we check:  
+            <strong>500 + (-300) + (-200) = 0 ✔</strong>  
+            This means the earning of 500 perfectly balances the two expenses.
+        </li>
+        
+        <li><strong>Benefit:</strong> Helps in balancing the company accounts, finding mistakes, and ensuring that all income and expenses are recorded properly.</li>
+    </ul>
+</div>
+
+<div class="moreExample">
+    <strong>Example 2: Environmental Sensor Balancing (Detailed Explanation)</strong>
+    <ul>
+        <li><strong>Scenario:</strong> Temperature control systems use multiple sensors. One sensor may show hotter temperature, another may show cooler temperature. The system checks if three readings together cancel out to zero, which means the overall room temperature is stable.</li>
+        
+        <li><strong>Detailed Example:</strong> 
+            Readings = [+3°C, -1°C, -2°C, +5°C].  
+            When we check:  
+            <strong>+3 + (-1) + (-2) = 0 ✔</strong>  
+            This means one sensor shows heat (+3°) and the other two show cooling (-1° and -2°), which perfectly balance out.
+        </li>
+        
+        <li><strong>Benefit:</strong> Helps in detecting faulty sensors, maintaining room stability, preventing unnecessary AC/heater use, and saving electricity.</li>
+    </ul>
+</div>
+
+<div class="moreExample">
+    <strong>Example 3: Stock Market Drift Correction (Detailed Explanation)</strong>
+    <ul>
+        <li><strong>Scenario:</strong> Stock prices move up and down. Trading systems check if three movements together cancel to zero, which means the market is stable and not behaving abnormally.</li>
+        
+        <li><strong>Detailed Example:</strong>
+            Movements = [+8, -5, -3, +10].  
+            When we check:  
+            <strong>8 + (-5) + (-3) = 0 ✔</strong>  
+            This means the stock went up by 8 points and down by 5 and 3 points — these movements cancel out.
+        </li>
+        
+        <li><strong>Benefit:</strong> Helps trading apps detect normal patterns, avoid wrong predictions, remove fake price spikes, and guide users in making safer investments.</li>
+    </ul>
+</div>
+
+<div class="moreExample">
+    <strong>Example 4: Logistics Weight Equalization (Detailed Explanation)</strong>
+    <ul>
+        <li><strong>Scenario:</strong> Warehouses track weight changes. Sometimes weight is added, removed, or adjusted. The system checks if three weight changes sum to zero to maintain perfect balance and avoid overloading.</li>
+        
+        <li><strong>Detailed Example:</strong>
+            Weight changes = [+10kg, -4kg, -6kg, +8kg].  
+            When we check:  
+            <strong>10 + (-4) + (-6) = 0 ✔</strong>  
+            This means adding 10 kg and removing 4 kg and 6 kg cancels out to zero — perfectly balanced.
+        </li>
+        
+        <li><strong>Benefit:</strong> Prevents truck overloading, keeps goods balanced, reduces accident risks, improves fuel efficiency, and ensures safe transport.</li>
+    </ul>
+</div>
+
+
+<script>
+const editor = CodeMirror(document.getElementById('editor'), {
+    mode: 'htmlmixed',
+    lineNumbers: true,
+    theme: 'dracula',
+    tabSize: 2,
+    value: ''
+});
+let edit=document.getElementById("editor");
+
+const iframe = document.getElementById('ifrm1');
+
+// Function to load gamingExample.html automatically
+async function loadCode() {
+    try {
+        const resp = await fetch("exampleThreesum.html");
+        const data = await resp.text();
+        editor.setValue(data);
+        iframe.srcdoc = data;
+        edit.style.display="none";
+
+    } catch (e) {
+        editor.setValue("<!-- exampleTwoSum.html not found -->");
+    }
+}
+
+// Update preview live while typing
+editor.on('change', () => {
+    iframe.srcdoc = editor.getValue();
+});
+
+loadCode();
+let displayValue=true;
+editTheCode.onclick=()=>{
+    if(displayValue){
+        edit.style.display="";
+        ifrm1.style.display="none";
+        displayValue=false;
+        editTheCode.innerHTML="Run the code....";
+    }else{
+        edit.style.display="none";
+        ifrm1.style.display="";
+        displayValue=true;
+        editTheCode.innerHTML="Edit the Code....";
+    }
+}
+
+const copyBtn = document.getElementById('copyCode');
+copyBtn.addEventListener('click', () => {
+    const code = editor.getValue();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code)
+        .then(() => {
+            copyBtn.innerText = "Copied!";
+            setTimeout(() => { copyBtn.innerText = "Copy Code"; }, 1500);
+        })
+        .catch(() => { fallbackCopy(code); });
+    } else { fallbackCopy(code); }
+});
+
+function fallbackCopy(text) {
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    textarea.setSelectionRange(0, 99999);
+    try {
+        document.execCommand('copy');
+        copyBtn.innerText = "Copied!";
+        setTimeout(() => { copyBtn.innerText = "Copy Code"; }, 1500);
+    } catch (err) {
+        alert("Failed to copy code");
+    }
+    document.body.removeChild(textarea);
+}
+</script>
+
+</body>
+</html>

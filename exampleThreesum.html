@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>x.ThreeSumProblem....</title>
+
+<style>
+/* -------------------- General Page Styling (same as Two Sum) -------------------- */
+body {
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212;
+    color: #f0f0f0;
+    padding-bottom: 50px;
+    margin: 0;
+}
+h1 { color: #fff; margin-top: 20px; }
+h2 { color: #ccc; font-size: 20px; margin-bottom: 10px; }
+
+.box {
+    width: 95%; max-width: 1000px;
+    min-height: 300px;
+    margin: 20px auto;
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 20px; padding: 15px; box-sizing: border-box;
+    background-color: #1e1e1e;
+    border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    overflow-y: auto;
+}
+
+.pairContainer {
+    display: flex; flex-direction: column; align-items: center; gap: 5px;
+    padding: 15px; border-radius: 12px;
+    background: linear-gradient(145deg, #333, #555);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.pairContainer:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
+.itemContainer { display: flex; flex-direction: column; align-items: center; }
+.itemBox {
+    width: 60px; height: 60px;
+    display: flex; justify-content: center; align-items: center;
+    font-size: 28px; border-radius: 12px;
+    background: linear-gradient(135deg, #444, #666);
+    color: #fff; font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+}
+.itemBox:hover {
+    transform: scale(1.2);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.8);
+    background: linear-gradient(135deg, #777, #999);
+}
+.price { font-weight: bold; font-size: 16px; color: #ccc; margin-top: 5px; }
+
+button {
+    margin-top: 20px; padding: 12px 25px; font-size: 18px; cursor: pointer;
+    border: none; border-radius: 8px;
+    background: linear-gradient(135deg, #444, #888);
+    color: #fff; font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.7);
+}
+
+p { font-size: 16px; color: #bbb; font-weight: bold; margin: 10px 0; }
+
+.box::-webkit-scrollbar { width: 8px; }
+.box::-webkit-scrollbar-thumb { background: #555; border-radius: 4px; }
+.box::-webkit-scrollbar-track { background: #222; }
+
+@media (max-width: 600px) {
+    .itemBox { width: 50px; height: 50px; font-size: 24px; }
+    button { padding: 10px 20px; font-size: 16px; }
+}
+</style>
+</head>
+<body>
+
+<h1>💡 x.Three Sum Problem</h1>
+<h2>Find 3 items whose total price is exactly 0!</h2>
+<p>This uses the <b>Three Sum algorithm</b> — a famous problem from <b>LeetCode</b>.</p>
+
+<div class="box"></div>
+<button id="threeSum">Show Triplets (3-Sum)</button>
+<br><br>
+target value = 0
+
+<script>
+let box = document.querySelector(".box");
+
+// Sample values (positive + negative + zero)
+let itemPrice = [ -5, 2, 3, -2, 8, -3, 1, -1, 0, 4, -4 ];
+
+// emojis for fun
+let itemEmoji = ["🚗","🛵","🚲","🚁","🚀","🚓","🚙","🛺","🚂","🛶","✈"];
+
+// store item boxes
+let boxes = [];
+
+// display initial items
+for (let i = 0; i < itemPrice.length; i++) {
+
+    let container = document.createElement("div");
+    container.className = "itemContainer";
+
+    let div = document.createElement("div");
+    div.className = "itemBox";
+    div.innerHTML = itemEmoji[i];
+
+    let price = document.createElement("div");
+    price.className = "price";
+    price.innerHTML = itemPrice[i] >= 0 ? `₹${itemPrice[i]}` : `-₹${Math.abs(itemPrice[i])}`;
+
+    container.appendChild(div);
+    container.appendChild(price);
+    box.appendChild(container);
+
+    boxes.push({ container, price: itemPrice[i], emoji: itemEmoji[i] });
+}
+
+document.getElementById("threeSum").onclick = () => {
+
+    box.innerHTML = "";
+
+    let foundTriplets = [];
+
+    for (let i = 0; i < boxes.length; i++) {
+        for (let j = i + 1; j < boxes.length; j++) {
+            for (let k = j + 1; k < boxes.length; k++) {
+
+                if (boxes[i].price + boxes[j].price + boxes[k].price === 0) {
+                    foundTriplets.push([i, j, k]);
+                }
+            }
+        }
+    }
+
+    if (foundTriplets.length === 0) {
+        box.innerHTML = "<b>No triplets found</b>";
+        return;
+    }
+
+    foundTriplets.forEach(triplet => {
+
+        let container = document.createElement("div");
+        container.className = "pairContainer";
+
+        triplet.forEach(index => {
+            let div = document.createElement("div");
+            div.className = "itemBox";
+            div.innerHTML = boxes[index].emoji;
+
+            let price = document.createElement("div");
+            price.className = "price";
+            price.innerHTML = boxes[index].price >= 0 
+                ? `₹${boxes[index].price}` 
+                : `-₹${Math.abs(boxes[index].price)}`;
+
+            container.appendChild(div);
+            container.appendChild(price);
+        });
+
+        box.appendChild(container);
+    });
+};
+</script>
+
+</body>
+</html>
